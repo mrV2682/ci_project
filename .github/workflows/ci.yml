@@ -1,0 +1,28 @@
+name: CI Pipeline
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Install dependencies
+      run: pip install -r requirements.txt
+
+    - name: Run lint
+      run: flake8 src
+
+    - name: Run tests
+      run: python -m pytest --cov=src --junitxml=reports/test-report.xml
+
+    - name: Upload test report
+      uses: actions/upload-artifact@v4
+      with:
+        name: test-report
+        path: reports/test-report.xml
