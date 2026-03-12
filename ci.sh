@@ -14,7 +14,11 @@ flake8 src
 
 # Step 3: Running unit tests
 echo "Running unit tests..."
-python -m pytest --cov=src
+python -m pytest \
+    --cov=src \
+    --cov-report=term \
+    --cov-report=html:reports/coverage \
+    --junitxml=reports/test-report.xml
 
 echo "================================================"
 echo "CI pipeline completed successfully!"
