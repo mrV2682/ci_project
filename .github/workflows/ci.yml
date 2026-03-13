@@ -26,5 +26,14 @@ jobs:
       with:
         name: test-report
         path: reports/test-report.xml
+
+    - name: Publish Test Results
+      uses: dorny/test-reporter@v1
+      if: always()
+      with:
+        name: Pytest Tests
+        path: reports/test-report.xml
+        reporter:java-junit 
+
     - name: Build Docker image
       run: docker build -t ci-demo .
