@@ -33,7 +33,7 @@ jobs:
       with:
         name: Pytest Tests
         path: reports/test-report.xml
-      reporter: java-junit
+        reporter: java-junit
 
     - name: Build Docker image
       run: docker build -t ci-demo .
