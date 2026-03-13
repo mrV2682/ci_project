@@ -26,3 +26,5 @@ jobs:
       with:
         name: test-report
         path: reports/test-report.xml
+    - name: Build Docker image
+      run: docker build -t ci-demo .

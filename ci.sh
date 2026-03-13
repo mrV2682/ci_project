@@ -18,7 +18,9 @@ python -m pytest \
     --cov=src \
     --cov-report=term \
     --cov-report=html:reports/coverage \
-    --junitxml=reports/test-report.xml
+    --junitxml=reports/test-report.xml \
+    --json-report \
+    --json-report-file=reports/test-report.json
 
 echo "================================================"
 echo "CI pipeline completed successfully!"
