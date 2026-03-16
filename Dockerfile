@@ -6,4 +6,4 @@ COPY . .
 
 RUN pip install --no-cache-dir -r requirements.txt
 
-CMD ["make", "ci"]
+CMD ["bash", "ci.sh"]
