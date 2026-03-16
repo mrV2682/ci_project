@@ -1,6 +1,13 @@
 #! /bin/bash
 set -e
 
+echo "Check docker environment"
+if [ -f /.dockerenv ]; then
+  echo "Running inside Docker container"
+else
+  echo "Running on host VM"
+fi
+
 echo "================================================"
 echo "Starting CI pipeline..."
 echo "================================================"
