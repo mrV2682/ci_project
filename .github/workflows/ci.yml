@@ -9,28 +9,28 @@ permissions:
   checks: write
 
 jobs:
-  test:
+  ci:
     runs-on: ubuntu-latest
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
-    - name: Install dependencies
-      run: pip install -r requirements.txt
+    - name: Build Docker image
+      run: docker build -t ci-demo .
 
-    - name: Run lint
-      run: flake8 src
-
-    - name: Run tests
-      run: python -m pytest --cov=src --junitxml=reports/test-report.xml
-
-    - name: Upload test report
+    - name: Run CI inside container
+      run: |
+        docker run \
+          -v ${{ github.workspace }}:/app \
+          ci-demo
+   
+    - name: Upload reports
       uses: actions/upload-artifact@v4
       with:
-        name: test-report
-        path: reports/test-report.xml
-
+        name: reports
+        path: reports
+   
     - name: Publish Test Results
       uses: dorny/test-reporter@v1
       if: always()
@@ -38,6 +38,4 @@ jobs:
         name: Pytest Tests
         path: reports/test-report.xml
         reporter: java-junit
-
-    - name: Build Docker image
-      run: docker build -t ci-demo .
+   
